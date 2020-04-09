@@ -13,8 +13,10 @@ public class PlayerSetup : NetworkBehaviour
     [SerializeField] GameObject thirdPersonView;
     void Start()
     {
+        // TODO: Refactor all this out into individual methods
         Renderer[] thirdPersonRenderers = thirdPersonView.GetComponentsInChildren<Renderer>();
         Renderer[] firstPersonRenderers = firstPersonView.GetComponentsInChildren<Renderer>();
+
         // If this Player instance is NOT the local player disable all the linked stuff
         if (!isLocalPlayer)
         {
@@ -51,4 +53,23 @@ public class PlayerSetup : NetworkBehaviour
 
     }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        // Register the player with the game state
+        string _netID = GetComponent<NetworkIdentity>().netId.ToString();
+        GameManagerSingleton.Instance.RegisterPlayer(_netID, gameObject);
+
+        // Disable lobby camera and audio listeners
+        LobbySingleton.Instance.DisableLobby();
+    }
+
+    private void OnDisable()
+    {
+        // Enabled lobby camera and listeners
+        LobbySingleton.Instance.EnableLobby();
+
+        // Remove player from game state
+        GameManagerSingleton.Instance.UnRegisterPlayer(transform.name);
+    }
 }
