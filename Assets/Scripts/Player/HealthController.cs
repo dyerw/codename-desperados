@@ -27,7 +27,8 @@ public class HealthController : NetworkBehaviour
         hudController.SetHealthText(_currentHealth);
     }
 
-    public void TakeDamage(int amount)
+    [ClientRpc]
+    public void RpcTakeDamage(int amount)
     {
         currentHealth -= amount;
         Debug.Log(transform.name + " now has " + currentHealth + " health.");

@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 3829148667321369273}
   - component: {fileID: 1088384287484725196}
   - component: {fileID: 3841387528022419498}
+  - component: {fileID: 5949458251020700563}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -417,8 +418,7 @@ MonoBehaviour:
   - {fileID: 1088384287484725196}
   - {fileID: 1462698021109465661}
   myCamera: {fileID: 1508628196409040199}
-  firstPersonView: {fileID: 479914432859468115}
-  thirdPersonView: {fileID: 7480008717421841351}
+  renderController: {fileID: 5949458251020700563}
 --- !u!114 &3829148667321369273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +478,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   hudController: {fileID: 7145417838430274682}
+--- !u!114 &5949458251020700563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508628198076783444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182990ebaf525d740bd332905e0c6b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstPersonView: {fileID: 479914432859468115}
+  thirdPersonView: {fileID: 7480008717421841351}
 --- !u!64 &9063536928723929372
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -582,8 +596,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -391, y: 264}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 50, y: 264}
+  m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2827259253233049709
 CanvasRenderer:
@@ -771,7 +785,7 @@ RectTransform:
   m_GameObject: {fileID: 8734900689695364040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children: []
   m_Father: {fileID: 5633255676237508501}
   m_RootOrder: 2

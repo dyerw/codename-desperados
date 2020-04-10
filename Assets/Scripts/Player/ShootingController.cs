@@ -39,8 +39,9 @@ public class ShootingController : NetworkBehaviour
                 fpsCam.transform.forward,
                 out _hit,
                 equippedWeapon.range,
-                shootableMask)
+                shootableMask
             )
+        )
         {
             Debug.Log("We hit " + _hit.collider.name);
             string hitTag = _hit.collider.tag;
@@ -74,6 +75,6 @@ public class ShootingController : NetworkBehaviour
         {
             Debug.LogError(_ID + " got hit but does not have a health controller!");
         }
-        healthController.TakeDamage(damage);
+        healthController.RpcTakeDamage(damage);
     }
 }
