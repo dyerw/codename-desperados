@@ -14,17 +14,26 @@ public class PlayerSetup : MonoBehaviourPun
     [SerializeField] RenderController renderController;
     void Start()
     {
+        SpawnSetup();
+    }
+    public void SpawnSetup()
+    {
         if (photonView.IsMine)
         {
+            LobbySingleton.Instance.DisableLobby();
+            myCamera.enabled = true;
+            myAudioListener.enabled = true;
             renderController.ThirdPersonShadowsOnly();
             renderController.DisableFirstPersonShadows();
+            renderController.ShowFirstPerson();
+            renderController.ThirdPersonNotShootable();
         } else
         {
             myCamera.enabled = false;
             myAudioListener.enabled = false;
             renderController.HideFirstPerson();
+            renderController.ShowThirdPerson();
         }
-
     }
 
     void OnEnable()

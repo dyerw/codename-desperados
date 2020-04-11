@@ -15,8 +15,6 @@ public class ShootingController : MonoBehaviourPun
     [SerializeField]
     FirstPersonHUDController hudController;
 
-    [SerializeField]
-    AudioClip tempRevolverShot;
 
     private void Awake()
     {
@@ -39,14 +37,14 @@ public class ShootingController : MonoBehaviourPun
 
     void Shoot()
     {
-        AudioSource.PlayClipAtPoint(tempRevolverShot, transform.position);
+        photonView.RPC("PlayGunshot", RpcTarget.All);
         RaycastHit _hit;
         if (
             Physics.Raycast(
                 fpsCam.transform.position,
                 fpsCam.transform.forward,
                 out _hit,
-                equippedWeapon.range,
+                Mathf.Infinity,
                 shootableMask
             )
         )

@@ -24,6 +24,9 @@ public class HealthController : MonoBehaviourPun
     [SerializeField]
     private Canvas firstPersonHUD;
 
+    [SerializeField]
+    private PlayerSetup playerSetup;
+
     private int currentHealth;
 
     private void Awake()
@@ -58,37 +61,23 @@ public class HealthController : MonoBehaviourPun
 
     private IEnumerator Respawn()
     {
-        Debug.Log("Respawning in 3 seconds...");
-        yield return new WaitForSeconds(3f);
-        Debug.Log("Respawning!");
-
         // Move me to a spawn point
         GameObject[] spawnPoints = GameManagerSingleton.Instance.spawnPoints;
         int index = Random.Range(0, spawnPoints.Length);
         Transform spawnTransform = spawnPoints[index].transform;
         transform.position = spawnTransform.position;
 
+        yield return new WaitForSeconds(3f);
+
+
         // Gimme all my health baby
         SetDefaults();
-
-        if (photonView.IsMine)
-        {
-            // Reinhabit your body
-            LobbySingleton.Instance.DisableLobby();
-            myCamera.enabled = true;
-            myListener.enabled = true;
-            firstPersonHUD.enabled = true;
-        }
-
-        renderController.ShowFirstPerson();
-        renderController.ShowThirdPerson();
+        playerSetup.SpawnSetup();        
     }
 
     [PunRPC]
     public void RpcGetHit(string weaponName, string bodyLocation)
     {
-        // Do stuff that happens for everyone here
-
         // Just for client
         if (photonView.IsMine)
         {
@@ -96,6 +85,7 @@ public class HealthController : MonoBehaviourPun
             int damage = weapon.calculateDamage(bodyLocation);
             Debug.Log("I got hit in the " + bodyLocation + " for " + damage.ToString());
             photonView.RPC("RpcTakeDamage", RpcTarget.All, damage);
+            photonView.RPC("PlayHitSound", RpcTarget.All);
         }
     }
 

@@ -16,6 +16,14 @@ public class RenderController : MonoBehaviour
         firstPersonRenderers = firstPersonView.GetComponentsInChildren<Renderer>();
     }
 
+    public void ThirdPersonNotShootable()
+    {
+        foreach(Renderer r in thirdPersonRenderers)
+        {
+            r.gameObject.layer = 2;
+        }
+    }
+
     public void HideFirstPerson()
     {
         foreach (Renderer renderer in firstPersonRenderers)
