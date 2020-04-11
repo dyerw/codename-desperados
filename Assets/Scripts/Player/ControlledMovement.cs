@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
-public class ControlledMovement : MonoBehaviour
+using Photon.Pun;
+
+public class ControlledMovement : MonoBehaviourPun
 {
 
     [SerializeField] CharacterController characterController;
@@ -12,6 +14,10 @@ public class ControlledMovement : MonoBehaviour
 
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         if (characterController.isGrounded)
         {
             float x = Input.GetAxis("Horizontal");
