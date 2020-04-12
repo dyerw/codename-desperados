@@ -1,19 +1,12 @@
 fileFormatVersion: 2
-guid: 07800ae6a3a85644bab0db9cd957dd86
+guid: 91790eda9c279be4381cd2d307183f47
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable: []
-  externalObjects:
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Handle
-    second: {fileID: 2100000, guid: 93e3e78ba872bf54aa508fab41c38530, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Metal
-    second: {fileID: 2100000, guid: 71df339798eac3040bfb5af7eafa21c1, type: 2}
+      74: -623603649343465320
+    second: Scene
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
