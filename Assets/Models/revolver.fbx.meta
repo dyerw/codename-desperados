@@ -1,11 +1,20 @@
 fileFormatVersion: 2
-guid: 91790eda9c279be4381cd2d307183f47
+guid: a529460b4bcd8024984939eb1e808bd8
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
-      74: -623603649343465320
-    second: Scene
+      74: 6631647775892814284
+    second: FireAction
+  - first:
+      74: 1592276177686614142
+    second: Gun|FireAction
+  - first:
+      74: -6059962525177546869
+    second: Gun|FireAction.001
+  - first:
+      74: 3237712790341408839
+    second: Gun|IdleAction
   externalObjects: {}
   materials:
     materialImportMode: 1

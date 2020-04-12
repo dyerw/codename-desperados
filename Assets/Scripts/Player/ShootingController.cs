@@ -15,6 +15,9 @@ public class ShootingController : MonoBehaviourPun
     [SerializeField]
     FirstPersonHUDController hudController;
 
+    [SerializeField]
+    Animator gunAnimator;
+
     private float lastShotTime;
 
     private void Awake()
@@ -41,6 +44,7 @@ public class ShootingController : MonoBehaviourPun
 
     void Shoot()
     {
+        gunAnimator.SetTrigger("ShotFired");
         lastShotTime = Time.time;
         photonView.RPC("PlayGunshot", RpcTarget.All);
         RaycastHit _hit;
