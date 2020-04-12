@@ -401,6 +401,7 @@ MonoBehaviour:
     headDamage: 100
     bodyDamage: 30
     legsDamage: 20
+    fireRate: 0.3
   shootableMask:
     serializedVersion: 2
     m_Bits: 512

@@ -15,10 +15,12 @@ public class ShootingController : MonoBehaviourPun
     [SerializeField]
     FirstPersonHUDController hudController;
 
+    private float lastShotTime;
 
     private void Awake()
     {
         hudController.SetEquippedWeaponText(equippedWeapon.name);
+        lastShotTime = -100f;
     }
 
     // Update is called once per frame
@@ -28,8 +30,10 @@ public class ShootingController : MonoBehaviourPun
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("I am shooting");
-                Shoot();
+                if (Time.time - lastShotTime >= equippedWeapon.fireRate)
+                {
+                    Shoot();
+                }
             }
         }
         
@@ -37,6 +41,7 @@ public class ShootingController : MonoBehaviourPun
 
     void Shoot()
     {
+        lastShotTime = Time.time;
         photonView.RPC("PlayGunshot", RpcTarget.All);
         RaycastHit _hit;
         if (
