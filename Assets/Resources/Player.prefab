@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b30925cbac4914dac239e1a371444a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hudCanvas: {fileID: 1462698021109465661}
   healthText: {fileID: 1504246641480924335}
   equippedWeaponText: {fileID: 8882112879482908440}
 --- !u!1 &1508628196409040192
@@ -382,6 +383,7 @@ MonoBehaviour:
   myCamera: {fileID: 1508628196409040199}
   myAudioListener: {fileID: 1508628196409040193}
   renderController: {fileID: 5949458251020700563}
+  fpsHudController: {fileID: 7145417838430274682}
 --- !u!114 &1088384287484725196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,7 +426,6 @@ MonoBehaviour:
   renderController: {fileID: 5949458251020700563}
   myCamera: {fileID: 1508628196409040199}
   myListener: {fileID: 1508628196409040193}
-  firstPersonHUD: {fileID: 1462698021109465661}
   playerSetup: {fileID: 2111471608928750979}
 --- !u!114 &5949458251020700563
 MonoBehaviour:

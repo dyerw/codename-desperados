@@ -22,9 +22,6 @@ public class HealthController : MonoBehaviourPun
     private AudioListener myListener;
 
     [SerializeField]
-    private Canvas firstPersonHUD;
-
-    [SerializeField]
     private PlayerSetup playerSetup;
 
     private int currentHealth;
@@ -40,11 +37,6 @@ public class HealthController : MonoBehaviourPun
         hudController.SetHealthText(currentHealth);
     }
 
-    private void OnHealthChange(int _currentHealth)
-    {
-        hudController.SetHealthText(_currentHealth);
-    }
-
     private void Die()
     {
         renderController.HideFirstPerson();
@@ -54,7 +46,7 @@ public class HealthController : MonoBehaviourPun
             myCamera.enabled = false;
             myListener.enabled = false;
             LobbySingleton.Instance.EnableLobby();
-            firstPersonHUD.enabled = false;
+            hudController.DisableHUD();
         }
         StartCoroutine(Respawn());
     }
@@ -68,6 +60,11 @@ public class HealthController : MonoBehaviourPun
         transform.position = spawnTransform.position;
 
         yield return new WaitForSeconds(3f);
+
+        if (photonView.IsMine)
+        {
+            hudController.EnableHUD();
+        }
 
 
         // Gimme all my health baby
@@ -94,6 +91,8 @@ public class HealthController : MonoBehaviourPun
     {
         currentHealth -= amount;
         Debug.Log(transform.name + " now has " + currentHealth + " health.");
+
+        hudController.SetHealthText(currentHealth);
 
         if (currentHealth <= 0)
         {

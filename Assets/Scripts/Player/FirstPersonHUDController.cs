@@ -3,8 +3,20 @@ using UnityEngine.UI;
 
 public class FirstPersonHUDController : MonoBehaviour
 {
+    [SerializeField] Canvas hudCanvas;
     [SerializeField] Text healthText;
     [SerializeField] Text equippedWeaponText;
+
+    public void EnableHUD()
+    {
+
+        hudCanvas.enabled = true;
+    }
+
+    public void DisableHUD()
+    {
+        hudCanvas.enabled = false;
+    }
 
     public void SetHealthText(int amount)
     {

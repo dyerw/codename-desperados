@@ -12,6 +12,7 @@ public class PlayerSetup : MonoBehaviourPun
     [SerializeField] Camera myCamera;
     [SerializeField] AudioListener myAudioListener;
     [SerializeField] RenderController renderController;
+    [SerializeField] FirstPersonHUDController fpsHudController;
     void Start()
     {
         SpawnSetup();
@@ -29,6 +30,7 @@ public class PlayerSetup : MonoBehaviourPun
             renderController.ThirdPersonNotShootable();
         } else
         {
+            fpsHudController.DisableHUD();
             myCamera.enabled = false;
             myAudioListener.enabled = false;
             renderController.HideFirstPerson();
