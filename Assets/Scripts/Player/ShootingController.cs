@@ -2,6 +2,8 @@
 
 using Photon.Pun;
 
+using Desperados.Game;
+
 public class ShootingController : MonoBehaviourPun
 {
     [SerializeField]
@@ -44,9 +46,9 @@ public class ShootingController : MonoBehaviourPun
 
     void Shoot()
     {
+        EffectManager.Instance.SyncGunshotEffect(transform.position, Vector3.zero, "foo");
         gunAnimator.SetTrigger("ShotFired");
         lastShotTime = Time.time;
-        photonView.RPC("PlayGunshot", RpcTarget.All);
         RaycastHit _hit;
         if (
             Physics.Raycast(

@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182990ebaf525d740bd332905e0c6b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstPersonView: {fileID: 0}
+  firstPersonView: {fileID: 2733044125604180887}
   thirdPersonView: {fileID: 7480008717421841351}
 --- !u!114 &7626076956946831384
 MonoBehaviour:
