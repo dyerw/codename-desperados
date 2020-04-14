@@ -9,6 +9,8 @@ public class Weapon
     public int bodyDamage = 30;
     public int legsDamage = 20;
     public float fireRate = 0.5f;
+    public int bulletCapacity = 6;
+    public float reloadTime = 3.4f;
 
     public int calculateDamage(string bodyLocation)
     {

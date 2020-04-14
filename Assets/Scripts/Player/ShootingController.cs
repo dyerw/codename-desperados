@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+
+using UnityEngine;
 
 using Photon.Pun;
 
@@ -21,11 +23,14 @@ public class ShootingController : MonoBehaviourPun
     Animator gunAnimator;
 
     private float lastShotTime;
+    private int currentBullets;
+    private bool isReloading = false;
 
     private void Awake()
     {
-        hudController.SetEquippedWeaponText(equippedWeapon.name);
+        hudController.SetEquippedWeaponInfo(equippedWeapon);
         lastShotTime = -100f;
+        currentBullets = equippedWeapon.bulletCapacity;
     }
 
     // Update is called once per frame
@@ -33,19 +38,43 @@ public class ShootingController : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !isReloading)
             {
                 if (Time.time - lastShotTime >= equippedWeapon.fireRate)
                 {
-                    Shoot();
+                    if (currentBullets > 0)
+                    {
+                        Shoot();
+                    } else
+                    {
+                        EffectManager.Instance.SyncOutOfAmmoEffect(transform.position);
+                    }
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+            {
+                StartCoroutine(Reload());
             }
         }
         
     }
 
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        EffectManager.Instance.SyncReloadEffect(transform.position);
+
+        yield return new WaitForSecondsRealtime(equippedWeapon.reloadTime); 
+
+        currentBullets = equippedWeapon.bulletCapacity;
+        hudController.SetCurrentAmmo(currentBullets);
+        isReloading = false;
+    }
+
     void Shoot()
     {
+        currentBullets--;
+        hudController.SetCurrentAmmo(currentBullets);
         EffectManager.Instance.SyncGunshotEffect(transform.position, Vector3.zero, "foo");
         gunAnimator.SetTrigger("ShotFired");
         lastShotTime = Time.time;

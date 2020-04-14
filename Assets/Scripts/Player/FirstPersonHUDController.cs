@@ -6,6 +6,8 @@ public class FirstPersonHUDController : MonoBehaviour
     [SerializeField] Canvas hudCanvas;
     [SerializeField] Text healthText;
     [SerializeField] Text equippedWeaponText;
+    [SerializeField] Text currentAmmoText;
+    [SerializeField] Text maxAmmoText;
 
     public void EnableHUD()
     {
@@ -23,8 +25,15 @@ public class FirstPersonHUDController : MonoBehaviour
         healthText.text = amount.ToString();
     }
 
-    public void SetEquippedWeaponText(string weaponName)
+    public void SetEquippedWeaponInfo(Weapon weapon)
     {
-        equippedWeaponText.text = weaponName;
+        equippedWeaponText.text = weapon.name;
+        maxAmmoText.text = weapon.bulletCapacity.ToString();
+        currentAmmoText.text = weapon.bulletCapacity.ToString();
+    }
+
+    public void SetCurrentAmmo(int amount)
+    {
+        currentAmmoText.text = amount.ToString();
     }
 }
