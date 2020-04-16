@@ -89,7 +89,9 @@ public class ShootingController : MonoBehaviourPun
             )
         )
         {
-            Debug.Log("We hit " + _hit.collider.name);
+            Shootable.ShootableType shootableType = _hit.transform.gameObject.GetComponent<Shootable>().shootableType;
+            EffectManager.Instance.SyncGunHitEffect(_hit.transform.position, shootableType);
+
             string hitTag = _hit.collider.tag;
             bool hitPlayer = hitTag == "PlayerHead" || hitTag == "PlayerBody" || hitTag == "PlayerLegs";
             if (hitPlayer)

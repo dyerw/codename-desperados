@@ -9,8 +9,21 @@ namespace Desperados.Game {
         [SerializeField] AudioClip revolverShotClip;
         [SerializeField] AudioClip outOfAmmoClip;
         [SerializeField] AudioClip reloadClip;
+        [SerializeField] AudioClip ricochetClip;
+        [SerializeField] AudioClip playerHitClip;
 
         public static EffectManager Instance { get; private set; }
+
+        AudioSource PlaySoundFromLocation(Vector3 location, AudioClip clip)
+        {
+            GameObject tmpGO = new GameObject("One shot audio");
+            tmpGO.transform.position = location;
+            AudioSource audioSource = tmpGO.AddComponent<AudioSource>();
+            audioSource.clip = clip;
+            audioSource.Play();
+            Destroy(tmpGO, audioSource.clip.length);
+            return audioSource;
+        }
 
         #region MonoBehaviour Callbacks
         private void Awake()
@@ -42,7 +55,7 @@ namespace Desperados.Game {
 
         private void DoReloadEffect(Vector3 originLocation)
         {
-            AudioSource.PlayClipAtPoint(reloadClip, originLocation, 1.3f);
+            PlaySoundFromLocation(originLocation, reloadClip);
         }
 
         #endregion
@@ -62,7 +75,38 @@ namespace Desperados.Game {
 
         private void DoGunShotEffect(Vector3 originLocation, Vector3 hitLocation, string hitTag)
         {
-            AudioSource.PlayClipAtPoint(revolverShotClip, originLocation);
+            PlaySoundFromLocation(originLocation, revolverShotClip);
+        }
+
+        #endregion
+
+        #region GunHitEffect
+
+        public void SyncGunHitEffect(Vector3 position, Shootable.ShootableType shootableType)
+        {
+            DoGunHitEffect(position, shootableType);
+            photonView.RPC("RpcDoGunHitEffect", RpcTarget.Others, position, shootableType);
+        }
+
+        [PunRPC]
+        void RpcDoGunHitEffect(Vector3 position, Shootable.ShootableType shootableType) 
+        {
+            DoGunHitEffect(position, shootableType);
+        }
+
+        void DoGunHitEffect(Vector3 position, Shootable.ShootableType shootableType)
+        {
+            AudioClip hitClip = null;
+            switch (shootableType) 
+            {
+                case Shootable.ShootableType.Terrain:
+                    hitClip = ricochetClip;
+                    break;
+                case Shootable.ShootableType.Player:
+                    hitClip = playerHitClip;
+                    break;
+            }
+            PlaySoundFromLocation(position, hitClip);
         }
 
         #endregion
@@ -83,7 +127,7 @@ namespace Desperados.Game {
 
         private void DoOutOfAmmoEffect(Vector3 originLocation)
         {
-            AudioSource.PlayClipAtPoint(outOfAmmoClip, originLocation);
+            PlaySoundFromLocation(originLocation, outOfAmmoClip);
         }
 
         #endregion

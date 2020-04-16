@@ -80,9 +80,7 @@ public class HealthController : MonoBehaviourPun
         {
             Weapon weapon = GameManagerSingleton.Instance.weapons[weaponName];
             int damage = weapon.calculateDamage(bodyLocation);
-            Debug.Log("I got hit in the " + bodyLocation + " for " + damage.ToString());
             photonView.RPC("RpcTakeDamage", RpcTarget.All, damage);
-            photonView.RPC("PlayHitSound", RpcTarget.All);
         }
     }
 
@@ -90,7 +88,6 @@ public class HealthController : MonoBehaviourPun
     public void RpcTakeDamage(int amount)
     {
         currentHealth -= amount;
-        Debug.Log(transform.name + " now has " + currentHealth + " health.");
 
         hudController.SetHealthText(currentHealth);
 
