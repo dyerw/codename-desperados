@@ -9,19 +9,18 @@ namespace Desperados.Game {
         [SerializeField] AudioClip revolverShotClip;
         [SerializeField] AudioClip outOfAmmoClip;
         [SerializeField] AudioClip reloadClip;
-        [SerializeField] AudioClip ricochetClip;
         [SerializeField] AudioClip playerHitClip;
+        [SerializeField] AudioClip[] ricochetClips;
+        [SerializeField] AudioSource effectAudioSourcePrefab;
 
         public static EffectManager Instance { get; private set; }
 
         AudioSource PlaySoundFromLocation(Vector3 location, AudioClip clip)
         {
-            GameObject tmpGO = new GameObject("One shot audio");
-            tmpGO.transform.position = location;
-            AudioSource audioSource = tmpGO.AddComponent<AudioSource>();
+            AudioSource audioSource = Instantiate(effectAudioSourcePrefab, location, Quaternion.identity);
             audioSource.clip = clip;
             audioSource.Play();
-            Destroy(tmpGO, audioSource.clip.length);
+            Destroy(audioSource, audioSource.clip.length);
             return audioSource;
         }
 
@@ -100,6 +99,7 @@ namespace Desperados.Game {
             switch (shootableType) 
             {
                 case Shootable.ShootableType.Terrain:
+                    AudioClip ricochetClip = ricochetClips[Random.Range(0, ricochetClips.Length)];
                     hitClip = ricochetClip;
                     break;
                 case Shootable.ShootableType.Player:

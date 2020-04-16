@@ -90,7 +90,7 @@ public class ShootingController : MonoBehaviourPun
         )
         {
             Shootable.ShootableType shootableType = _hit.transform.gameObject.GetComponent<Shootable>().shootableType;
-            EffectManager.Instance.SyncGunHitEffect(_hit.transform.position, shootableType);
+            EffectManager.Instance.SyncGunHitEffect(_hit.point, shootableType);
 
             string hitTag = _hit.collider.tag;
             bool hitPlayer = hitTag == "PlayerHead" || hitTag == "PlayerBody" || hitTag == "PlayerLegs";

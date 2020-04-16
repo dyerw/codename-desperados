@@ -1009,8 +1009,17 @@ MonoBehaviour:
   revolverShotClip: {fileID: 8300000, guid: eada45dcae84b394b9f97aa8f4bb9c9f, type: 3}
   outOfAmmoClip: {fileID: 8300000, guid: 4e76c2c1f68d88b45bf4a96710def847, type: 3}
   reloadClip: {fileID: 8300000, guid: e0eb84ea72962e245a0f36c25a9a460c, type: 3}
-  ricochetClip: {fileID: 8300000, guid: ec545b88fd0b60b4c9f981f485580684, type: 3}
   playerHitClip: {fileID: 8300000, guid: aea59e018b44b474bbb1891981d86a01, type: 3}
+  ricochetClips:
+  - {fileID: 8300000, guid: ec545b88fd0b60b4c9f981f485580684, type: 3}
+  - {fileID: 8300000, guid: 9f71adf2aefa7fd4da67838359c4f6be, type: 3}
+  - {fileID: 8300000, guid: fb14d21f783fe8d4d98cdc18d6b93bd5, type: 3}
+  - {fileID: 8300000, guid: 4e0a5a991904296458047cb8eeaf302e, type: 3}
+  - {fileID: 8300000, guid: f30a11fa144ebf144b69d89275e55a39, type: 3}
+  - {fileID: 8300000, guid: 7cd5eca494830ae44aad447c50c22707, type: 3}
+  - {fileID: 8300000, guid: f77534265df3aba45bc0964898abecd3, type: 3}
+  effectAudioSourcePrefab: {fileID: 8704725975143833795, guid: 9080e3f7575c41f41be90c3e00c60b03,
+    type: 3}
 --- !u!4 &1322336928
 Transform:
   m_ObjectHideFlags: 0
