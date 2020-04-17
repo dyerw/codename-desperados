@@ -15,6 +15,7 @@ namespace Desperados.Game {
         [SerializeField] AudioSource effectAudioSourcePrefab;
 
         [SerializeField] VisualEffect gunsmokeEffect;
+        [SerializeField] VisualEffect bloodSprayEffect;
 
         public static EffectManager Instance { get; private set; }
 
@@ -109,6 +110,8 @@ namespace Desperados.Game {
                     break;
                 case Shootable.ShootableType.Player:
                     hitClip = playerHitClip;
+                    VisualEffect tmpBloodspray = Instantiate(bloodSprayEffect, position, Quaternion.identity);
+                    Destroy(tmpBloodspray.gameObject, 4.0f);
                     break;
             }
             PlaySoundFromLocation(position, hitClip);

@@ -1046,6 +1046,8 @@ MonoBehaviour:
     type: 3}
   gunsmokeEffect: {fileID: 3000044482710645974, guid: b7992e1ae37cc8c479faff3389cda25f,
     type: 3}
+  bloodSprayEffect: {fileID: 25841425153901070, guid: 7c03ca9946548764ca234213e8c01385,
+    type: 3}
 --- !u!4 &1322336928
 Transform:
   m_ObjectHideFlags: 0
