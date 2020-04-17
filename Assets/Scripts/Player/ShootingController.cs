@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 
 using UnityEngine;
+using UnityEngine.VFX;
 
 using Photon.Pun;
 
@@ -21,6 +22,9 @@ public class ShootingController : MonoBehaviourPun
 
     [SerializeField]
     Animator gunAnimator;
+
+    [SerializeField]
+    Transform pointOfGunLocation;
 
     private float lastShotTime;
     private int currentBullets;
@@ -75,7 +79,7 @@ public class ShootingController : MonoBehaviourPun
     {
         currentBullets--;
         hudController.SetCurrentAmmo(currentBullets);
-        EffectManager.Instance.SyncGunshotEffect(transform.position, Vector3.zero, "foo");
+        EffectManager.Instance.SyncGunshotEffect(pointOfGunLocation.position, pointOfGunLocation.rotation, Vector3.zero, "foo"); ;
         gunAnimator.SetTrigger("ShotFired");
         lastShotTime = Time.time;
         RaycastHit _hit;

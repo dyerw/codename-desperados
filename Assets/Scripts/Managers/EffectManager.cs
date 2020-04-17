@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.VFX;
 
 using Photon.Pun;
 
@@ -12,6 +13,8 @@ namespace Desperados.Game {
         [SerializeField] AudioClip playerHitClip;
         [SerializeField] AudioClip[] ricochetClips;
         [SerializeField] AudioSource effectAudioSourcePrefab;
+
+        [SerializeField] VisualEffect gunsmokeEffect;
 
         public static EffectManager Instance { get; private set; }
 
@@ -60,21 +63,23 @@ namespace Desperados.Game {
         #endregion
 
         #region GunshotEffect
-        public void SyncGunshotEffect(Vector3 originLocation, Vector3 hitLocation, string hitTag)
+        public void SyncGunshotEffect(Vector3 originLocation, Quaternion gunRotation, Vector3 hitLocation, string hitTag)
         {
-            DoGunShotEffect(originLocation, hitLocation, hitTag);
-            photonView.RPC("RpcDoGunShotEffect", RpcTarget.Others, originLocation, hitLocation, hitTag);
+            DoGunShotEffect(originLocation, gunRotation, hitLocation, hitTag);
+            photonView.RPC("RpcDoGunShotEffect", RpcTarget.Others, originLocation, gunRotation, hitLocation, hitTag);
         }
 
         [PunRPC]
-        void RpcDoGunShotEffect(Vector3 originLocation, Vector3 hitLocation, string hitTag)
+        void RpcDoGunShotEffect(Vector3 originLocation, Quaternion gunRotation, Vector3 hitLocation, string hitTag)
         {
-            DoGunShotEffect(originLocation, hitLocation, hitTag);
+            DoGunShotEffect(originLocation, gunRotation, hitLocation, hitTag);
         }
 
-        private void DoGunShotEffect(Vector3 originLocation, Vector3 hitLocation, string hitTag)
+        private void DoGunShotEffect(Vector3 originLocation, Quaternion gunRotation, Vector3 hitLocation, string hitTag)
         {
             PlaySoundFromLocation(originLocation, revolverShotClip);
+            VisualEffect tmpGunsmoke = Instantiate(gunsmokeEffect, originLocation, gunRotation);
+            Destroy(tmpGunsmoke, 4.0f);
         }
 
         #endregion

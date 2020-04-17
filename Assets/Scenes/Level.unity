@@ -1020,6 +1020,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f77534265df3aba45bc0964898abecd3, type: 3}
   effectAudioSourcePrefab: {fileID: 8704725975143833795, guid: 9080e3f7575c41f41be90c3e00c60b03,
     type: 3}
+  gunsmokeEffect: {fileID: 3000044482710645974, guid: b7992e1ae37cc8c479faff3389cda25f,
+    type: 3}
 --- !u!4 &1322336928
 Transform:
   m_ObjectHideFlags: 0
