@@ -55,7 +55,7 @@ public class ShootingController : MonoBehaviourPun
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+            if (Input.GetKeyDown(KeyCode.R) && !isReloading && currentBullets < equippedWeapon.bulletCapacity)
             {
                 StartCoroutine(Reload());
             }
