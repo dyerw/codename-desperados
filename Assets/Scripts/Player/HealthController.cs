@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 using Photon.Pun;
 using Desperados.Game;
@@ -13,16 +12,7 @@ public class HealthController : MonoBehaviourPun
     private FirstPersonHUDController hudController;
 
     [SerializeField]
-    private RenderController renderController;
-
-    [SerializeField]
-    private Camera myCamera;
-
-    [SerializeField]
-    private AudioListener myListener;
-
-    [SerializeField]
-    private PlayerSetup playerSetup;
+    PlayerController playerController;
 
     private int currentHealth;
 
@@ -35,41 +25,6 @@ public class HealthController : MonoBehaviourPun
     {
         currentHealth = maxHealth;
         hudController.SetHealthText(currentHealth);
-    }
-
-    private void Die()
-    {
-        renderController.HideFirstPerson();
-        renderController.HideThirdPerson();
-        if (photonView.IsMine)
-        {
-            myCamera.enabled = false;
-            myListener.enabled = false;
-            LobbySingleton.Instance.EnableLobby();
-            hudController.DisableHUD();
-        }
-        StartCoroutine(Respawn());
-    }
-
-    private IEnumerator Respawn()
-    {
-        // Move me to a spawn point
-        GameObject[] spawnPoints = GameManagerSingleton.Instance.spawnPoints;
-        int index = Random.Range(0, spawnPoints.Length);
-        Transform spawnTransform = spawnPoints[index].transform;
-        transform.position = spawnTransform.position;
-
-        yield return new WaitForSeconds(3f);
-
-        if (photonView.IsMine)
-        {
-            hudController.EnableHUD();
-        }
-
-
-        // Gimme all my health baby
-        SetDefaults();
-        playerSetup.SpawnSetup();        
     }
 
     [PunRPC]
@@ -93,7 +48,7 @@ public class HealthController : MonoBehaviourPun
 
         if (currentHealth <= 0)
         {
-            Die();
+            playerController.Die();
         }
     }
 }

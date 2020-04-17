@@ -26,6 +26,9 @@ public class ShootingController : MonoBehaviourPun
     [SerializeField]
     Transform pointOfGunLocation;
 
+    [SerializeField]
+    PlayerController playerController = null;
+
     private float lastShotTime;
     private int currentBullets;
     private bool isReloading = false;
@@ -42,7 +45,7 @@ public class ShootingController : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            if (Input.GetButtonDown("Fire1") && !isReloading)
+            if (Input.GetButtonDown("Fire1") && !isReloading && !playerController.isDead)
             {
                 if (Time.time - lastShotTime >= equippedWeapon.fireRate)
                 {
@@ -101,7 +104,8 @@ public class ShootingController : MonoBehaviourPun
             if (hitPlayer)
             {
                 PhotonView photonView = PhotonView.Get(_hit.transform.parent.parent.gameObject);
-                photonView.RPC("RpcGetHit", RpcTarget.All, equippedWeapon.name, hitTag);
+                Debug.Log("DEBUG :: Hit player with viewID " + photonView.ViewID);
+                photonView.RPC("RpcGetHit", RpcTarget.All,equippedWeapon.name, hitTag);
             }
         }
     }

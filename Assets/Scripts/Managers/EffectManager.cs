@@ -23,7 +23,7 @@ namespace Desperados.Game {
             AudioSource audioSource = Instantiate(effectAudioSourcePrefab, location, Quaternion.identity);
             audioSource.clip = clip;
             audioSource.Play();
-            Destroy(audioSource, audioSource.clip.length);
+            Destroy(audioSource.gameObject, audioSource.clip.length);
             return audioSource;
         }
 
@@ -79,7 +79,7 @@ namespace Desperados.Game {
         {
             PlaySoundFromLocation(originLocation, revolverShotClip);
             VisualEffect tmpGunsmoke = Instantiate(gunsmokeEffect, originLocation, gunRotation);
-            Destroy(tmpGunsmoke, 4.0f);
+            Destroy(tmpGunsmoke.gameObject, 4.0f);
         }
 
         #endregion

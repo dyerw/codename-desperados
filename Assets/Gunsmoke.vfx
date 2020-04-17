@@ -21,7 +21,7 @@ MonoBehaviour:
     x: 941
     y: -133
     width: 403
-    height: 2211
+    height: 2213
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1058,10 +1058,10 @@ VisualEffectResource:
             serializedVersion: 2
             m_Curve:
             - serializedVersion: 3
-              time: 0.0053539276
-              value: 0.46227264
-              inSlope: -0.45678782
-              outSlope: -0.45678782
+              time: 0.0040569305
+              value: 0.40096283
+              inSlope: -0.39474937
+              outSlope: -0.39474937
               tangentMode: 34
               weightedMode: 0
               inWeight: 0
@@ -1069,8 +1069,8 @@ VisualEffectResource:
             - serializedVersion: 3
               time: 1.0018616
               value: 0.007080078
-              inSlope: -0.45678782
-              outSlope: -0.45678782
+              inSlope: -0.39474937
+              outSlope: -0.39474937
               tangentMode: 34
               weightedMode: 0
               inWeight: 0
@@ -3957,7 +3957,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0053539276123046879,"value":0.46227264404296877,"inTangent":-0.4567878246307373,"outTangent":-0.4567878246307373,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.001861572265625,"value":0.007080078125,"inTangent":-0.4567878246307373,"outTangent":-0.4567878246307373,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0040569305419921879,"value":0.40096282958984377,"inTangent":-0.39474937319755556,"outTangent":-0.39474937319755556,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.001861572265625,"value":0.007080078125,"inTangent":-0.39474937319755556,"outTangent":-0.39474937319755556,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: 2147483647
   m_Property:
     name: Alpha

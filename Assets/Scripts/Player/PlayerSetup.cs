@@ -38,22 +38,4 @@ public class PlayerSetup : MonoBehaviourPun
         }
     }
 
-    void OnEnable()
-    {
-        string _netID = photonView.ViewID.ToString();
-        // Register the player with the game state
-        GameManagerSingleton.Instance.RegisterPlayer(_netID, gameObject);
-
-        // Disable lobby camera and audio listeners
-        LobbySingleton.Instance.DisableLobby();
-    }
-
-    private void OnDisable()
-    {
-        // Enabled lobby camera and listeners
-        LobbySingleton.Instance.EnableLobby();
-
-        // Remove player from game state
-        GameManagerSingleton.Instance.UnRegisterPlayer(transform.name);
-    }
 }

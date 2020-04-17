@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,6 +26,9 @@ namespace Desperados.Game
         [SerializeField]
         Weapon revolver;
 
+        [SerializeField]
+        int respawnTimeSeconds = 0;
+
         public static GameManagerSingleton Instance { get; private set; }
 
         private void Awake()
@@ -41,29 +45,50 @@ namespace Desperados.Game
 
         private void Start()
         {
-            weapons.Add(revolver.name, revolver);           
+            weapons.Add(revolver.name, revolver);
+            StartCoroutine(SpawnPlayer(0));
+        }
 
+        IEnumerator SpawnPlayer(int delaySeconds)
+        {
+            yield return new WaitForSeconds(delaySeconds);
+            Debug.Log("DEBUG :: Spawning Player");
+            Transform spawnTransform = GetRandomSpawnTransform();
+            GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnTransform.position, spawnTransform.rotation);
+            photonView.RPC("RpcRegisterPlayerObject", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.UserId, player.GetPhotonView().ViewID);
+        }
+
+        public void SyncDeath(string killedUserId, string killedByUserId)
+        {
+            Debug.Log("DEBUG :: Running SyncDeath");
+            GameObject player = GetPlayer(killedUserId);
+            PhotonNetwork.Destroy(player);
+            StartCoroutine(SpawnPlayer(respawnTimeSeconds));
+        }
+        
+        private Transform GetRandomSpawnTransform()
+        {
             int index = Random.Range(0, spawnPoints.Length);
-            Transform spawnTransform = spawnPoints[index].transform;
-            LobbySingleton.Instance.DisableLobby();
-            PhotonNetwork.Instantiate(playerPrefab.name, spawnTransform.position, spawnTransform.rotation, 0);
+            return spawnPoints[index].transform;
         }
 
         #region Public Methods
 
-        public GameObject GetPlayer(string _playerId)
+        public GameObject GetPlayer(string _userId)
         {
-            return players[_playerId];
+            return players[_userId];
         }
 
-        public void RegisterPlayer(string _netId, GameObject _player)
+        [PunRPC]
+        private void RpcRegisterPlayerObject(string _userId, int viewID)
         {
-            string playerId = PLAYER_PREFIX + _netId;
-            players.Add(playerId, _player);
-            _player.transform.name = playerId;
+            GameObject _player = PhotonNetwork.GetPhotonView(viewID).gameObject;
+            string playerName = PLAYER_PREFIX + _userId;
+            _player.transform.name = playerName;
+            players[_userId] = _player;
         }
 
-        public void UnRegisterPlayer(string _playerId)
+        private void UnRegisterPlayer(string _playerId)
         {
             players.Remove(_playerId);
         }
@@ -79,7 +104,7 @@ namespace Desperados.Game
 
         public override void OnLeftRoom()
         {
-            SceneManager.LoadScene("Lobby");
+            SceneManager.LoadScene("Launcher");
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
