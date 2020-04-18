@@ -130,7 +130,7 @@ namespace Desperados.Game {
         [PunRPC]
         void RpcDoOutOfAmmoEffect(Vector3 originLocation)
         {
-            RpcDoOutOfAmmoEffect(originLocation);
+            DoOutOfAmmoEffect(originLocation);
         }
 
         private void DoOutOfAmmoEffect(Vector3 originLocation)
